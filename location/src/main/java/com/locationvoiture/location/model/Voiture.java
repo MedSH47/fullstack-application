@@ -13,6 +13,10 @@ public class Voiture {
     private String marque;
     private int prix;
     
+    //ctor par defaut
+    public Voiture(){
+    }
+
     public Voiture(int id, String marque, int prix) {
         this.id = id;
         this.marque = marque;

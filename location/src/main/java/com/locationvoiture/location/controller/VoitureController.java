@@ -2,10 +2,13 @@ package com.locationvoiture.location.controller;
 
 import com.locationvoiture.location.model.Voiture;
 import com.locationvoiture.location.service.VoitureService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import com.locationvoiture.location.service.DatabaseCheckService;
 
 @RestController
 
@@ -13,8 +16,10 @@ public class VoitureController {
 
     @Autowired
     private VoitureService voitureService;
+    @Autowired
+    private DatabaseCheckService databaseCheckService;
 
-    @GetMapping("")
+    @GetMapping("/voiture")
     public List<Voiture> getAllVoitures() {
         return voitureService.getAllVoitures();
     }
@@ -34,8 +39,13 @@ public class VoitureController {
         voitureService.deleteVoiture(id);
     }
 
-    @GetMapping("/getHello")
-    public String getHello(){
-        return voitureService.getHello();
+    @GetMapping("/check-database")
+    public String checkDatabaseConnection() {
+        if (databaseCheckService.isDatabaseConnected()) {
+            return "Connected to the MySQL database!";
+        } else {
+            return "Failed to connect to the MySQL database.";
+        }
     }
+
 }
